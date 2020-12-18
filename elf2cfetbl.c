@@ -1235,13 +1235,13 @@ int32 ProcessCmdLineOptions(int ArgumentCount, char *Arguments[])
         {
             strncpy(SrcFilename, Arguments[i], PATH_MAX - 1);
             SrcFilename[PATH_MAX - 1] = '\0';
-            InputFileSpecified = true;
+            InputFileSpecified        = true;
         }
         else if (!OutputFileSpecified)
         {
             strncpy(DstFilename, Arguments[i], PATH_MAX - 1);
             DstFilename[PATH_MAX - 1] = '\0';
-            OutputFileSpecified = true;
+            OutputFileSpecified       = true;
         }
         else
         {
@@ -1281,7 +1281,7 @@ int32 ProcessCmdLineOptions(int ArgumentCount, char *Arguments[])
 
 void OutputVersionInfo(void)
 {
-    printf("\n%s\n", ELF2CFETBL_VERSION_STRING);    
+    printf("\n%s\n", ELF2CFETBL_VERSION_STRING);
 }
 
 /**
@@ -1290,7 +1290,7 @@ void OutputVersionInfo(void)
 
 void OutputHelpInfo(void)
 {
-    printf("\nElf Object File to cFE Table Image File Conversion Tool (elf2cfetbl)\n\n");      
+    printf("\nElf Object File to cFE Table Image File Conversion Tool (elf2cfetbl)\n\n");
     printf("elf2cfetbl [-tTblName] [-d\"Description\"] [-h] [-v] [-V] [-s#] [-p#] [-n] \n");
     printf("           [-T] [-eYYYY:MM:DD:hh:mm:ss] [-fYYYY:MM:DD:hh:mm:ss] SrcFilename [DestDirectory]\n");
     printf("   where:\n");
@@ -1404,8 +1404,8 @@ int32 GetDstFilename(void)
 
 int32 OpenSrcFile(void)
 {
-    int       RtnCode;
-    char      TimeBuff[50];
+    int  RtnCode;
+    char TimeBuff[50];
 
     // Check to see if input file can be found and opened
     SrcFileDesc = fopen(SrcFilename, "r");
@@ -1787,8 +1787,8 @@ int32 GetSectionHeader(int32 SectionIndex, union Elf_Shdr *SectionHeader)
                  * Not all compilers generate a separate strtab for section header names; some put everything
                  * into one string table.
                  */
-                if (strcmp(SectionNamePtrs[SectionIndex],".strtab") == 0 ||
-                        (StringTableDataOffset == 0 && SectionIndex != get_e_shstrndx(&ElfHeader)))
+                if (strcmp(SectionNamePtrs[SectionIndex], ".strtab") == 0 ||
+                    (StringTableDataOffset == 0 && SectionIndex != get_e_shstrndx(&ElfHeader)))
                 {
                     StringTableDataOffset = get_sh_offset(SectionHeader);
                 }
@@ -2279,8 +2279,8 @@ int32 GetTblDefInfo(void)
         NumDefsRead = fread(&TblFileDef, sizeof(CFE_TBL_FileDef_t), 1, SrcFileDesc);
 
         /* ensuring all are strings are null-terminated */
-        TblFileDef.ObjectName[sizeof(TblFileDef.ObjectName) - 1] = '\0';
-        TblFileDef.TableName[sizeof(TblFileDef.TableName) - 1] = '\0';
+        TblFileDef.ObjectName[sizeof(TblFileDef.ObjectName) - 1]   = '\0';
+        TblFileDef.TableName[sizeof(TblFileDef.TableName) - 1]     = '\0';
         TblFileDef.Description[sizeof(TblFileDef.Description) - 1] = '\0';
         TblFileDef.TgtFilename[sizeof(TblFileDef.TgtFilename) - 1] = '\0';
 
